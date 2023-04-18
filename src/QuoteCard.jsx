@@ -4,15 +4,19 @@ import { FaTwitter, FaTumblr, FaQuoteLeft, FaCopyright } from "react-icons/fa";
 import "./quotes.css";
 import randomColor from "randomcolor";
 import Fantasy from "./assets/header.png";
+import Typewriter from "typewriter-effect";
 
 const QuoteCard = () => {
+
   const [data, setData] = useState([]);
   const [color, setColor] = useState("#44d7a8");
 
   var real = randomColor();
 
   const GetQuote = () => {
+
     setColor(real);
+
     axios.get("http://api.quotable.io/random").then((response) => {
       setData(response.data);
     });
@@ -29,7 +33,16 @@ const QuoteCard = () => {
         <img src={Fantasy} />
         <div id="text">
           <FaQuoteLeft />
-          <span style={{ marginLeft: "1rem" }}>{data.content}</span>
+          <span style={{ marginLeft: "1rem" }}>
+            <Typewriter
+              options={{
+                strings: [`${data.content}`],
+                autoStart: true,
+                loop: false,
+                delay: 'natural'
+              }}
+            />
+          </span>
         </div>
         <div id="author">
           <span>-{data.author}</span>
@@ -54,7 +67,7 @@ const QuoteCard = () => {
           </button>
         </div>
       </div>
-      <footer>{/* shree */}</footer>
+      {/* <footer>shree</footer> */}
     </>
   );
 };
